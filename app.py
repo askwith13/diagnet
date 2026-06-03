@@ -360,9 +360,9 @@ if origin_id and dijkstra_result:
             is_opt = "★" in str(row.get("", ""))
             is_ql = row.get("", "") == "Q Policy"
             if is_opt:
-                return ["background-color: #d4edda; font-weight: bold"] * len(row)
+                return ["background-color: #d4edda; color: black; font-weight: bold"] * len(row)
             if is_ql:
-                return ["background-color: #fff3cd"] * len(row)
+                return ["background-color: #fff3cd; color: black"] * len(row)
             return [""] * len(row)
 
         st.dataframe(
