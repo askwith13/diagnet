@@ -42,30 +42,41 @@ def _generate_explanation(
     edge: dict,
 ) -> str:
     cdst_name = CDST_NAMES.get(cdst_id, cdst_id)
+    travel_min = edge["travel_min"]
+    queue_pct = edge["norm_queue"] * 100
+    cart_pct = (1 - edge["norm_cart_unavail"]) * 100
 
-    # SHAP values explain the routing cost (lower = better).
-    # Negative SHAP → feature reduces cost → favorable for this recommendation.
-    labels = {
-        "travel_time": f"travel time ({edge['travel_min']:.0f} min)",
-        "queue_load": "lab queue load",
-        "cartridge_unavail": "cartridge availability",
-        "anomaly_score": "anomaly flag",
-    }
-
-    # Sort by contribution magnitude; negative = favorable
+    # Sort features: most favorable (negative SHAP) first
     ranked = sorted(zip(feature_names, shap_values), key=lambda t: t[1])
 
-    parts = []
+    drivers, limiters = [], []
     for name, val in ranked:
         if abs(val) < 0.005:
             continue
-        label = labels[name]
-        if val < 0:
-            parts.append(f"favorable {label}")
-        else:
-            parts.append(f"elevated {label}")
+        if name == "travel_time":
+            if val < 0:
+                drivers.append(f"short travel distance ({travel_min:.0f} min)")
+            else:
+                limiters.append(f"long travel distance ({travel_min:.0f} min)")
+        elif name == "queue_load":
+            if val < 0:
+                drivers.append(f"low queue pressure ({queue_pct:.0f}% capacity used)")
+            else:
+                limiters.append(f"high queue pressure ({queue_pct:.0f}% capacity used)")
+        elif name == "cartridge_unavail":
+            if val < 0:
+                drivers.append(f"strong cartridge stock ({cart_pct:.0f}% available)")
+            else:
+                limiters.append(f"low cartridge stock ({cart_pct:.0f}% available)")
+        elif name == "anomaly_score" and val > 0.005:
+            limiters.append("anomaly flag active at origin facility")
+
+    parts = []
+    if drivers:
+        parts.append("Recommended because of " + " and ".join(drivers[:2]))
+    if limiters:
+        parts.append("limiting factor: " + "; ".join(limiters[:2]))
 
     if parts:
-        factors = "; ".join(parts[:3])
-        return f"{cdst_name} recommended — key factors: {factors}."
-    return f"{cdst_name} recommended as the lowest-cost referral destination."
+        return ". ".join(parts) + "."
+    return f"{cdst_name} has the lowest composite routing cost across all 5 CDST labs."
