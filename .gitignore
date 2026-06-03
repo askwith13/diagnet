@@ -1,0 +1,20 @@
+# Secrets — never commit
+.env
+
+# Virtual environment
+.venv/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# OS noise
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# BMad framework tooling — not part of the deployable app
+.claude/
+_bmad/

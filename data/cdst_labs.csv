@@ -1,0 +1,6 @@
+cdst_id,cdst_name,lat,lon,monthly_capacity,current_load
+CDST-01,"RNTCP State Reference Laboratory, Kolkata",22.5726,88.3639,500,264
+CDST-02,NBMCH CDST Lab,26.7271,88.3953,300,85
+CDST-03,Midnapore MCH CDST Lab,22.4239,87.3191,250,119
+CDST-04,Murshidabad MCH CDST Lab,24.18,88.27,200,158
+CDST-05,Bardhamaan MCH CDST Lab,23.2324,87.8615,280,53
