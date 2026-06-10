@@ -29,7 +29,7 @@ ORS_BASE_URL = "https://api.openrouteservice.org"
 CDST_IDS = ["CDST-01", "CDST-02", "CDST-03", "CDST-04", "CDST-05"]
 
 CDST_NAMES = {
-    "CDST-01": "RNTCP State Reference Laboratory, Kolkata",
+    "CDST-01": "NTEP State Reference Laboratory, Kolkata",
     "CDST-02": "NBMCH CDST Lab",
     "CDST-03": "Midnapore MCH CDST Lab",
     "CDST-04": "Murshidabad MCH CDST Lab",

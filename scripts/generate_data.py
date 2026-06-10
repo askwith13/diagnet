@@ -27,7 +27,7 @@ def generate_facilities() -> pd.DataFrame:
     # Base records: (facility_name, base_lat, base_lon, assigned_cdst_id, dhc)
     # dhc=True → District Hospital Complex (higher volume); False → CHC
     _BASE = [
-        # ── CDST-01: RNTCP Kolkata (south / metro belt) ──────────────────────
+        # ── CDST-01: NTEP Kolkata (south / metro belt) ──────────────────────
         ("Kolkata DHC",                    22.5726, 88.3639, "CDST-01", True),
         ("Kolkata NRS CHC",                22.5448, 88.3426, "CDST-01", False),
         ("North 24 Parganas DHC (Barasat)",22.7218, 88.4797, "CDST-01", True),

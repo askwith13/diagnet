@@ -77,6 +77,14 @@ def _generate_explanation(
     if limiters:
         parts.append("limiting factor: " + "; ".join(limiters[:2]))
 
+    disclaimer = (
+        " [AI-generated explanation — interpret with caution and validate "
+        "against real-world conditions before acting.]"
+    )
+
     if parts:
-        return ". ".join(parts) + "."
-    return f"{cdst_name} has the lowest composite routing cost across all 5 CDST labs."
+        return ". ".join(parts) + "." + disclaimer
+    return (
+        f"{cdst_name} has the lowest composite routing cost across all 5 CDST labs."
+        + disclaimer
+    )
